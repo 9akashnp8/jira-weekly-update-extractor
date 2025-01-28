@@ -19,10 +19,7 @@ export async function getIssuesWorkedOn(
 }
 
 export async function getIssueComments(issueId: string): Promise<Comment[]> {
-  // TODO: calculate last 7 days dates
-  const data = await apiClient.get(
-    `/api/2/issue/${issueId}/comment?jql=commentedOnDate >= "2025/01/19" AND commentedOnDate < "2025/01/25" `
-  );
+  const data = await apiClient.get(`/api/2/issue/${issueId}/comment`);
   let { comments } = data.data;
   comments = comments
     .filter((c: any) => c.author.emailAddress == "akash.np@beinex.com")
