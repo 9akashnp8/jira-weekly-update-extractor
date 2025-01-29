@@ -2,16 +2,16 @@ import { Comment } from "./types";
 
 export function getNDaysFromToday(n: number) {
   const today = new Date();
-  const lastWeek = new Date(today);
-  lastWeek.setDate(today.getDate() - n);
-  return { today, lastWeek }
+  const nthDay = new Date(today);
+  nthDay.setDate(today.getDate() - n);
+  return { today, nthDay }
 }
 
 export function filterLastWeekComments(comments: Comment[]) {
-  const { lastWeek } = getNDaysFromToday(7)
+  const { nthDay } = getNDaysFromToday(7)
   const recentComments = comments.filter((comment) => {
     const commentDate = new Date(comment.createdAt);
-    return commentDate > lastWeek;
+    return commentDate > nthDay;
   });
   return recentComments;
 }
