@@ -4,16 +4,27 @@ export function getNDaysFromToday(n: number) {
   const today = new Date();
   const nthDay = new Date(today);
   nthDay.setDate(today.getDate() - n);
-  return { today, nthDay }
+  return { today, nthDay };
 }
 
 export function filterLastWeekComments(comments: Comment[]) {
-  const { nthDay } = getNDaysFromToday(7)
+  const { nthDay } = getNDaysFromToday(7);
   const recentComments = comments.filter((comment) => {
     const commentDate = new Date(comment.createdAt);
     return commentDate > nthDay;
   });
   return recentComments;
+}
+
+export function filterCommentsBwDateRange(
+  comments: Comment[],
+  fromDate: Date,
+  toDate: Date
+) {
+  return comments.filter((comment) => {
+    const commentDate = new Date(comment.createdAt);
+    return commentDate >= fromDate && commentDate <= toDate;
+  });
 }
 
 export function combineComments(title: string, comments: Comment[]) {
